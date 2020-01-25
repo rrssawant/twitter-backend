@@ -10,6 +10,10 @@ var client = new Twitter({
 
 module.exports.searchData = (req, res, next) => {
     client.get('search/tweets', {q: decodeURIComponent(req.params.id),count: 20 }, function(error, tweets, response) {
+      if(error) 
+      {
+        return res.status(500).json(error);
+      }
         var dataArray =[];
          tweets.statuses.forEach(function(tweet) {
             //  console.log("tweet: " + JSON.stringify(tweet.user))
